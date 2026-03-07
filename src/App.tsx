@@ -5,6 +5,8 @@ export default function App() {
         <div className="buttons">
           <output>아웃풋</output>
           <button className="clear">C</button>
+          <div></div>
+          <div></div>
           <button className="operator">/</button>
           <button className="number">7</button>
           <button className="number">8</button>
@@ -18,7 +20,9 @@ export default function App() {
           <button className="number">2</button>
           <button className="number">3</button>
           <button className="operator">+</button>
+          <div></div>
           <button className="number">0</button>
+          <div></div>
           <button className="result">=</button>
         </div>
       </article>
