@@ -33,6 +33,8 @@ export default function App() {
     // // 테스트 코드
     // console.log(event.currentTarget.textContent);
 
+    if (state.currentNumber === "0") return;
+
     const operator = event.currentTarget.value;
     const currentNum = parseInt(state.currentNumber || "0");
     if (state.previousNumber !== "" && state.operation) {
