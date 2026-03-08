@@ -1,7 +1,14 @@
 import { useState } from "react";
 
+interface CalculatorState {
+  previousNumber: string;
+  currentNumber: string;
+  isNewNumber: boolean;
+  operation: string | null;
+}
+
 export default function App() {
-  const [state, setState] = useState({
+  const [state, setState] = useState<CalculatorState>({
     previousNumber: "",
     currentNumber: "0",
     isNewNumber: true,
@@ -15,7 +22,52 @@ export default function App() {
   const handleOperatorClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    console.log(event.currentTarget.textContent);
+    // // 테스트 코드
+    // console.log(event.currentTarget.textContent);
+
+    const operator = event.currentTarget.value;
+    const currentNum = parseInt(state.currentNumber || "0");
+    if (state.previousNumber !== "" && state.operation) {
+      const previousNum = parseInt(state.previousNumber);
+      let result = 0;
+
+      switch (state.operation) {
+        case "+":
+          result = previousNum + currentNum;
+          break;
+        case "-":
+          result = previousNum - currentNum;
+          break;
+        case "*":
+          result = previousNum * currentNum;
+          break;
+        case "/":
+          result = previousNum / currentNum;
+          break;
+      }
+      if (operator === "=") {
+        setState({
+          previousNumber: "",
+          currentNumber: result.toString(),
+          isNewNumber: true,
+          operation: null,
+        });
+      } else {
+        setState({
+          previousNumber: result.toString(),
+          currentNumber: "",
+          isNewNumber: true,
+          operation: operator,
+        });
+      }
+    } else {
+      setState({
+        previousNumber: currentNum.toString(),
+        currentNumber: "",
+        isNewNumber: true,
+        operation: operator,
+      });
+    }
   };
 
   const handleNumberClick = (
@@ -49,7 +101,7 @@ export default function App() {
           </button>
           <div></div>
           <div></div>
-          <button className="operator" onClick={handleOperatorClick}>
+          <button className="operator" value="/" onClick={handleOperatorClick}>
             /
           </button>
           <button className="number" value="7" onClick={handleNumberClick}>
@@ -61,7 +113,7 @@ export default function App() {
           <button className="number" value="9" onClick={handleNumberClick}>
             9
           </button>
-          <button className="operator" onClick={handleOperatorClick}>
+          <button className="operator" value="*" onClick={handleOperatorClick}>
             *
           </button>
           <button className="number" value="4" onClick={handleNumberClick}>
@@ -73,7 +125,7 @@ export default function App() {
           <button className="number" value="6" onClick={handleNumberClick}>
             6
           </button>
-          <button className="operator" onClick={handleOperatorClick}>
+          <button className="operator" value="-" onClick={handleOperatorClick}>
             -
           </button>
           <button className="number" value="1" onClick={handleNumberClick}>
@@ -85,7 +137,7 @@ export default function App() {
           <button className="number" value="3" onClick={handleNumberClick}>
             3
           </button>
-          <button className="operator" onClick={handleOperatorClick}>
+          <button className="operator" value="+" onClick={handleOperatorClick}>
             +
           </button>
           <div></div>
@@ -93,7 +145,7 @@ export default function App() {
             0
           </button>
           <div></div>
-          <button className="result" onClick={handleOperatorClick}>
+          <button className="result" value="=" onClick={handleOperatorClick}>
             =
           </button>
         </div>
