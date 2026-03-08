@@ -16,7 +16,15 @@ export default function App() {
   });
 
   const handleClear = () => {
-    console.log("clear");
+    // // 테스트 코드
+    // console.log("clear");
+
+    setState({
+      previousNumber: "",
+      currentNumber: "0",
+      isNewNumber: true,
+      operation: null,
+    });
   };
 
   const handleOperatorClick = (
