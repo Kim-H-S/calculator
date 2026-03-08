@@ -71,6 +71,8 @@ export default function App() {
         });
       }
     } else {
+      if (operator === "=") return;
+
       setState({
         previousNumber: currentNum.toString(),
         currentNumber: "",
